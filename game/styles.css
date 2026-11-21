@@ -1,0 +1,85 @@
+/* Twin Atlas — warm atlas/paper theme, framed panels, readable HUD. */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #2e2118 radial-gradient(circle at 50% 0%, #4a3421, #2e2118 70%);
+  color: #f7ecd2; min-height: 100vh;
+}
+#app { max-width: 1330px; margin: 0 auto; padding: 8px 10px 10px; }
+#hud {
+  background: linear-gradient(180deg, #fdf6df, #f3e3ba);
+  color: #3a2a12; border: 3px solid #8a6a34; border-radius: 12px;
+  padding: 7px 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+}
+.hud-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.brand { font-weight: 700; letter-spacing: 1.5px; font-size: 19px; white-space: nowrap; }
+.brand span { display: block; font-size: 12.5px; letter-spacing: 0.4px; color: #7a5a22; font-weight: 400; }
+#timer-wrap { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; }
+#timer-bar { flex: 1; height: 16px; background: #d9c48f; border: 2px solid #8a6a34; border-radius: 9px; overflow: hidden; }
+#timer-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #3fae6a, #8fd45e); transition: width 0.25s linear; }
+#timer-bar.danger #timer-fill { background: linear-gradient(90deg, #e63946, #ff7b54); animation: pulse 0.6s infinite alternate; }
+@keyframes pulse { from { filter: brightness(0.85); } to { filter: brightness(1.3); } }
+#timer-text { font-size: 21px; font-weight: 700; min-width: 52px; text-align: right; font-variant-numeric: tabular-nums; }
+#timer-text.danger-text { color: #c22f2f; }
+#found-box { display: flex; align-items: center; gap: 10px; }
+#found-text { font-size: 21px; font-weight: 700; letter-spacing: 0.6px; }
+#togo-text { font-size: 14px; font-weight: 700; color: #b3541e; }
+#pips { display: inline-flex; gap: 3px; }
+.pip { width: 11px; height: 11px; border-radius: 50%; border: 2px solid #8a6a34; background: #fff8e2; display: inline-block; }
+.pip.filled { background: #ffb703; }
+.score-box { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+#streak-text.hot { color: #c2570f; }
+#hint-pips .bulb { color: #d9c48f; font-size: 15px; margin-right: 2px; }
+#hint-pips .bulb.lit { color: #f4a900; text-shadow: 0 0 6px #ffd76a; }
+#stage { position: relative; display: flex; gap: 10px; justify-content: center; align-items: flex-start; margin-top: 10px; }
+.panel-frame {
+  margin: 0; background: #fdf6df; padding: 7px 7px 3px; border-radius: 10px;
+  border: 3px solid #8a6a34; box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+.panel-frame canvas { display: block; width: 618px; height: auto; border-radius: 4px; cursor: crosshair; background: #888; }
+.panel-frame figcaption { text-align: center; color: #7a5a22; font-size: 11.5px; letter-spacing: 1.6px; padding: 3px 0 2px; }
+#divider {
+  align-self: center; background: #ffb703; color: #3a2400; font-weight: 700;
+  border: 2.4px solid #7a4d00; border-radius: 50%; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center; font-size: 14px; flex: 0 0 auto;
+}
+#controls { display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+button {
+  font-family: inherit; font-size: 15px; padding: 8px 18px; border-radius: 9px;
+  border: 2px solid #8a6a34; background: #fdf6df; color: #3a2a12; cursor: pointer;
+}
+button:hover { background: #ffeeb8; }
+button.primary { background: #ffb703; border-color: #7a4d00; font-weight: 700; font-size: 16.5px; padding: 10px 26px; }
+button.primary:hover { background: #ffc93b; }
+.hint-note { color: #d9c48f; font-size: 13px; }
+.overlay {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(24, 15, 6, 0.55); z-index: 5; border-radius: 10px;
+}
+.overlay.hidden { display: none; }
+.card {
+  background: linear-gradient(180deg, #fdf6df, #f3e3ba); color: #3a2a12;
+  border: 3px solid #8a6a34; border-radius: 14px; padding: 22px 30px;
+  max-width: 480px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+.card.wide-card { max-width: 860px; }
+.big-card h1 { font-size: 46px; margin: 4px 0; letter-spacing: 2px; }
+.card h2 { margin: 2px 0 10px; }
+.card p { margin: 7px 0; line-height: 1.45; }
+.card button { margin: 6px 4px 0; }
+.tagline { font-style: italic; color: #7a5a22; }
+#level-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+.level-card { display: flex; flex-direction: column; gap: 2.4px; text-align: left; padding: 11px 13px; align-items: flex-start; }
+.level-card.locked { opacity: 0.55; cursor: not-allowed; }
+.lc-num { font-size: 11px; letter-spacing: 1.4px; color: #7a5a22; }
+.lc-title { font-size: 17.5px; font-weight: 700; }
+.lc-sub { font-size: 12.5px; color: #6b5322; }
+.lc-meta { font-size: 12px; }
+.lc-stars { color: #f4a900; font-size: 16px; letter-spacing: 2px; }
+.lc-best { font-size: 12px; color: #7a5a22; }
+.stars { font-size: 38px; color: #f4a900; letter-spacing: 6px; margin: 4px 0; }
+#complete-breakdown { line-height: 1.65; font-size: 16px; }
+#complete-breakdown .total-line { font-weight: 700; font-size: 19px; }
+#complete-breakdown .campaign-note { font-weight: 700; color: #2f7a3d; margin-top: 6px; }
+@media (max-width: 1300px) { .panel-frame canvas { width: 46vw; } }
