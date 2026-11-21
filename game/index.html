@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twin Atlas: Spot the Difference</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <header id="hud">
+    <div class="hud-row">
+      <div class="brand">TWIN ATLAS <span id="scene-name">Scene 1 · Coral Kingdom</span></div>
+      <div id="timer-wrap">
+        <div id="timer-bar"><div id="timer-fill"></div></div>
+        <div id="timer-text">5:00</div>
+      </div>
+      <div id="found-box">
+        <span id="found-text">FOUND 0 / 12</span>
+        <span id="togo-text">12 TO GO</span>
+        <span id="pips"></span>
+      </div>
+      <div class="score-box">
+        <span id="score-text">SCORE 0</span>
+        <span id="streak-text">STREAK —</span>
+        <span id="hint-pips" title="Hints left"></span>
+      </div>
+    </div>
+  </header>
+
+  <main id="stage">
+    <figure class="panel-frame">
+      <canvas id="panel-left" width="620" height="430"></canvas>
+      <figcaption>ORIGINAL</figcaption>
+    </figure>
+    <div id="divider">VS</div>
+    <figure class="panel-frame">
+      <canvas id="panel-right" width="620" height="430"></canvas>
+      <figcaption>12 DIFFERENCES HIDE HERE — CLICK EITHER PICTURE</figcaption>
+    </figure>
+
+    <section id="screen-title" class="overlay">
+      <div class="card big-card">
+        <h1>Twin Atlas</h1>
+        <p class="tagline">Spot the Difference — a six-scene campaign of hidden changes.</p>
+        <p>Two near-identical pictures. Twelve differences in every scene. Find them all before the timer drains.</p>
+        <button id="btn-play" class="primary">Play</button>
+        <button id="btn-how">How to Play</button>
+      </div>
+    </section>
+
+    <section id="screen-how" class="overlay hidden">
+      <div class="card">
+        <h2>How to Play</h2>
+        <p>Click a difference in either picture. A golden ring marks it on both.</p>
+        <p>Wrong clicks cost 5 seconds and 25 points, and break your streak. Consecutive finds raise your streak multiplier up to x4.</p>
+        <p>Hints (H) glow near one unfound difference — 3 per scene, 15 seconds apart. Pause with Esc or P, mute with M.</p>
+        <p>Finish a scene to unlock the next. Earn up to 3 stars per scene.</p>
+        <button id="btn-how-back" class="primary">Back</button>
+      </div>
+    </section>
+
+    <section id="screen-levels" class="overlay hidden">
+      <div class="card wide-card">
+        <h2>Choose a Scene</h2>
+        <div id="level-cards"></div>
+        <button id="btn-levels-back">Back to Title</button>
+      </div>
+    </section>
+
+    <section id="screen-intro" class="overlay hidden">
+      <div class="card">
+        <h2 id="intro-title">Scene 1 — Coral Kingdom</h2>
+        <p id="intro-sub"></p>
+        <button id="btn-start-scene" class="primary">Start Hunting</button>
+        <button id="btn-intro-back">All Scenes</button>
+      </div>
+    </section>
+
+    <section id="screen-pause" class="overlay hidden">
+      <div class="card">
+        <h2>Paused</h2>
+        <p>The timer is frozen. The differences are not going anywhere.</p>
+        <button id="btn-resume" class="primary">Resume</button>
+        <button id="btn-pause-restart">Restart Scene</button>
+        <button id="btn-pause-levels">All Scenes</button>
+      </div>
+    </section>
+
+    <section id="screen-complete" class="overlay hidden">
+      <div class="card">
+        <h2 id="complete-title">Scene Complete!</h2>
+        <div id="complete-stars" class="stars">★★★</div>
+        <div id="complete-breakdown"></div>
+        <button id="btn-next" class="primary">Next Scene</button>
+        <button id="btn-complete-levels">All Scenes</button>
+      </div>
+    </section>
+
+    <section id="screen-timeup" class="overlay hidden">
+      <div class="card">
+        <h2>Time Up!</h2>
+        <p id="timeup-text"></p>
+        <button id="btn-retry" class="primary">Retry Scene</button>
+        <button id="btn-timeup-levels">All Scenes</button>
+      </div>
+    </section>
+  </main>
+
+  <footer id="controls">
+    <button id="btn-hint">Hint (H)</button>
+    <button id="btn-pause">Pause (Esc)</button>
+    <button id="btn-restart">Restart</button>
+    <button id="btn-mute">Mute (M)</button>
+    <span class="hint-note">Wrong click: −5s, −25 pts · Find: 150 pts × streak</span>
+  </footer>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
